@@ -81,6 +81,23 @@ class SingleLinkedList:
         self.tail = iter
 
 
+  #This function will return a sliced part of the Linked list
+  def slice(self, fromIndex = 0, toIndex = None) -> 'SingleLinkedList':
+    if not toIndex: toIndex = self.length
+    slicedList = SingleLinkedList()
+    index = 0
+    shouldRun = True
+    iter = self.head
+    while shouldRun:
+      if index >= fromIndex and index < toIndex:
+        slicedList.appendLast(iter.data)
+      if index >= toIndex - 1: shouldRun = False
+      iter = iter.next
+      index += 1
+
+    return slicedList
+
+
   #This function is used to get the element in the specified index
   def get(self, position : int = None) -> None:
     if position == 0: return self.head.data
@@ -154,11 +171,17 @@ ll = SingleLinkedList()
 ll.insert(15, 1)
 ll.insert(21, 2)
 ll.insert(211, 0)
-ll.insert(212, 2)
+ll.insert(217)
+ll.insert(216)
+ll.insert(215)
+ll.insert(214)
+ll.insert(213)
+ll.insert(211)
 print(ll)
-l = ll.reverse()
-print(l.length)
-print(l)
+print(ll.slice(2, 9))
+# l = ll.reverse()
+# print(l.length)
+# print(l)
 # print(ll.get(2), '1')
 # ll.set(2, 2)
 # print(ll)
