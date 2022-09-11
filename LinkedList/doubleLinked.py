@@ -113,7 +113,7 @@ class DoubleLinkedList:
 
   #This function will return a sliced part of the linked list 
   def slice(self, fromIndex = 0, toIndex = None) -> 'DoubleLinkedList':
-    if not toIndex: toIndex = self.length
+    if (not toIndex) or toIndex > self.length: toIndex = self.length
     slicedList = DoubleLinkedList()
     index = 0
     shouldRun = True

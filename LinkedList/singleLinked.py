@@ -83,7 +83,7 @@ class SingleLinkedList:
 
   #This function will return a sliced part of the Linked list
   def slice(self, fromIndex = 0, toIndex = None) -> 'SingleLinkedList':
-    if not toIndex: toIndex = self.length
+    if (not toIndex) or toIndex > self.length: toIndex = self.length
     slicedList = SingleLinkedList()
     index = 0
     shouldRun = True
