@@ -178,12 +178,14 @@ class SingleLinkedList:
         return output
 
     # create an iterable of this object
-    def __iter__(self):
+
+    def __iter__(self) -> "SingleLinkedList":
         self.current = self.head
         return self
 
     # get the next value in the iterable
-    def __next__(self):
+
+    def __next__(self) -> "SingleLinkedList.data":
         if self.current == None:
             # return
             raise IndexError("Index out of bound")

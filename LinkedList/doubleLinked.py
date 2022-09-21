@@ -227,12 +227,14 @@ class DoubleLinkedList:
         return output
 
     # create an iterable of this object
-    def __iter__(self):
+
+    def __iter__(self) -> "DoubleLinkedList":
         self.current = self.head
         return self
 
     # get the next value in the iterable
-    def __next__(self):
+
+    def __next__(self) -> "DoubleLinkedList.data":
         if self.current == None:
             raise IndexError("Index out of bound")
         else:
