@@ -1,5 +1,4 @@
 from node import Node
-from queue import Queue
 
 
 class DoubleLinkedList:
@@ -11,12 +10,12 @@ class DoubleLinkedList:
         self.tail = None
 
         # contains the number of elements in the list
-        self.length = 0
+        self.__length__ = 0
 
     # This function can be used to insert an element to the top of the linked list
 
     def appendFirst(self, data: any = None, next=None) -> None:
-        self.length += 1
+        self.__length__ += 1
         node = Node(data=data, next=self.head)
         if self.head:
             self.head.previous = node
@@ -27,7 +26,7 @@ class DoubleLinkedList:
     # This function can be used to insert an element to the end of the linked list
 
     def appendLast(self, data: any = None) -> None:
-        self.length += 1
+        self.__length__ += 1
         node = Node(data=data, previous=self.tail)
         if not self.head:
             self.head = node
@@ -46,14 +45,14 @@ class DoubleLinkedList:
             self.appendFirst(data)
             return
 
-        elif not position or position >= self.length:
+        elif not position or position >= self.__length__:
             self.appendLast(data)
             return
 
         elif position < 0:
             raise IndexError("List index out of range")
 
-        elif position < (self.length/2):
+        elif position < (self.__length__/2):
             index = 0
             iter = self.head
             while index < position - 1:
@@ -64,7 +63,7 @@ class DoubleLinkedList:
             iter.next = node
 
         else:
-            index = self.length - 1
+            index = self.__length__ - 1
             iter = self.tail
             while index > position:
                 iter = iter.previous
@@ -73,7 +72,7 @@ class DoubleLinkedList:
             iter.previous.next = node
             iter.previous = node
 
-        self.length += 1
+        self.__length__ += 1
 
     # This function is used to remove an element at the specified index of the linked list
 
@@ -83,17 +82,17 @@ class DoubleLinkedList:
             self.head.previous = None
             return
 
-        elif position == self.length - 1:
+        elif position == self.__length__ - 1:
             self.tail = self.tail.previous
             self.next = None
 
         elif not position:
             raise TypeError("Required datatype is 'int' but 'None' given")
 
-        elif position < 0 or position > self.length:
+        elif position < 0 or position > self.__length__:
             raise IndexError("List index out of range")
 
-        elif position < (self.length/2):
+        elif position < (self.__length__/2):
             index = 0
             iter = self.head
             while index < position - 1:
@@ -105,7 +104,7 @@ class DoubleLinkedList:
                 self.tail = iter
 
         else:
-            index = self.length - 1
+            index = self.__length__ - 1
             iter = self.tail
             while index > position:
                 iter = iter.previous
@@ -113,13 +112,13 @@ class DoubleLinkedList:
             iter.previous = iter.previous.previous
             iter.previous.next = iter
 
-        self.length -= 1
+        self.__length__ -= 1
 
     # This function will return a sliced part of the linked list
 
     def slice(self, fromIndex=0, toIndex=None) -> 'DoubleLinkedList':
-        if (not toIndex) or toIndex > self.length:
-            toIndex = self.length
+        if (not toIndex) or toIndex > self.__length__:
+            toIndex = self.__length__
         slicedList = DoubleLinkedList()
         index = 0
         shouldRun = True
@@ -143,13 +142,13 @@ class DoubleLinkedList:
         elif not position:
             raise TypeError("Expected type 'int' got 'None'")
 
-        elif position < 0 or position >= self.length:
+        elif position < 0 or position >= self.__length__:
             raise IndexError("List index out of range")
 
-        elif position == self.length - 1:
+        elif position == self.__length__ - 1:
             return self.tail.data
 
-        elif position < (self.length/2):
+        elif position < (self.__length__/2):
             index = 0
             iter = self.head
             while index < position:
@@ -158,7 +157,7 @@ class DoubleLinkedList:
             return iter.data
 
         else:
-            index = self.length - 1
+            index = self.__length__ - 1
             iter = self.tail
             while index > position:
                 iter = iter.previous
@@ -174,13 +173,13 @@ class DoubleLinkedList:
         elif not position or not newData:
             raise TypeError("Expected 'data' got 'None'")
 
-        elif position < 0 or position >= self.length:
+        elif position < 0 or position >= self.__length__:
             raise IndexError("List index out of range")
 
-        elif position == self.length - 1:
+        elif position == self.__length__ - 1:
             self.tail.data = newData
 
-        elif position < (self.length/2):
+        elif position < (self.__length__/2):
             index = 0
             iter = self.head
             while index < position:
@@ -189,7 +188,7 @@ class DoubleLinkedList:
             iter.data = newData
 
         else:
-            index = self.length - 1
+            index = self.__length__ - 1
             iter = self.tail
             while index > position:
                 iter = iter.previous
@@ -255,12 +254,12 @@ ll.insert(21, 2)
 ll.insert(211, 0)
 ll.insert(212)
 ll.insert(213)
-print(ll, ll.length)
+print(ll, ll.__length__)
 l = ll.slice()
 print(l)
 # print(ll.get(2))
 # ll.set(220, 2)
-# print(ll, ll.length)
+# print(ll, ll.__length__)
 # ll.remove(3)
 print(ll.reverse())
 # ll.insert(214)

@@ -10,12 +10,12 @@ class SingleLinkedList:
         self.tail = None
 
         # contains the number of elements in the list
-        self.length = 0
+        self.__length__ = 0
 
     # This function can be used to insert an element to the top of the linked list
 
     def appendFirst(self, data: any = None, next=None) -> None:
-        self.length += 1
+        self.__length__ += 1
         node = Node(data=data, next=self.head)
         self.head = node
         if not self.tail:
@@ -24,7 +24,7 @@ class SingleLinkedList:
     # This function can be used to insert an element to the end of the linked list
 
     def appendLast(self, data: any = None) -> None:
-        self.length += 1
+        self.__length__ += 1
         node = Node(data=data)
         if not self.head:
             self.head = node
@@ -43,7 +43,7 @@ class SingleLinkedList:
             self.appendFirst(data)
             return
 
-        elif not position or position >= self.length:
+        elif not position or position >= self.__length__:
             self.appendLast(data)
             return
 
@@ -51,7 +51,7 @@ class SingleLinkedList:
             raise IndexError("List index out of range")
 
         else:
-            self.length += 1
+            self.__length__ += 1
             index = 0
             iter = self.head
             while index != position - 1:
@@ -71,7 +71,7 @@ class SingleLinkedList:
         elif not position:
             raise TypeError("Required datatype is 'int' but 'None' given")
 
-        elif position < 0 or position > self.length:
+        elif position < 0 or position > self.__length__:
             raise IndexError("List index out of range")
 
         else:
@@ -86,9 +86,9 @@ class SingleLinkedList:
 
     # This function will return a sliced part of the Linked list
 
-    def slice(self, fromIndex=0, toIndex=None) -> 'SingleLinkedList':
-        if (not toIndex) or toIndex > self.length:
-            toIndex = self.length
+    def slice(self, fromIndex: int = 0, toIndex: int = None) -> 'SingleLinkedList':
+        if (not toIndex) or toIndex > self.__length__:
+            toIndex = self.__length__
         slicedList = SingleLinkedList()
         index = 0
         shouldRun = True
@@ -105,17 +105,17 @@ class SingleLinkedList:
 
     # This function is used to get the element in the specified index
 
-    def get(self, position: int = None) -> None:
+    def get(self, position: int = None) -> 'SingleLinkedList.data':
         if position == 0:
             return self.head.data
 
         elif not position:
             raise TypeError("Expected type 'int' got 'None'")
 
-        elif position < 0 or position >= self.length:
+        elif position < 0 or position >= self.__length__:
             raise IndexError("List index out of range")
 
-        elif position == self.length - 1:
+        elif position == self.__length__ - 1:
             return self.tail.data
 
         else:
@@ -135,10 +135,10 @@ class SingleLinkedList:
         elif not position or not newData:
             raise TypeError("Expected 'data' got 'None'")
 
-        elif position < 0 or position >= self.length:
+        elif position < 0 or position >= self.__length__:
             raise IndexError("List index out of range")
 
-        elif position == self.length - 1:
+        elif position == self.__length__ - 1:
             self.tail.data = newData
 
         else:
@@ -152,17 +152,28 @@ class SingleLinkedList:
     # This function will return reversed version of the Linked list
 
     def reverse(self) -> 'SingleLinkedList':
-        data = []
-        iter = self.head
-        while iter:
-            data.append(iter.data)
-            iter = iter.next
+        # data = []
+        # iter = self.head
+        # while iter:
+        #     data.append(iter.data)
+        #     iter = iter.next
 
         reversedList = SingleLinkedList()
-        while data.__len__():
-            reversedList.appendLast(data.pop())
+        try:
+            iteratorObj = iter(self)
+            for data in iteratorObj:
+                reversedList.appendFirst(data)
+        except IndexError:
+            return reversedList
+        # while data.__len__():
+        #     reversedList.appendLast(data.pop())
 
-        return reversedList
+        # return reversedList
+
+    # This functin will return the current length of the linked list
+
+    def leng(self) -> int:
+        return self.__length__
 
     # This function is used to return the string representation of the linked list
     # This is used when we print the instance of this class
@@ -171,7 +182,7 @@ class SingleLinkedList:
         iter = self.head
         output = str(iter.data)
         iter = iter.next
-        while iter:
+        while iter == None or iter == self.head:
             output += f" -> {iter.data}"
             iter = iter.next
 
@@ -188,38 +199,37 @@ class SingleLinkedList:
     def __next__(self) -> "SingleLinkedList.data":
         if self.current == None:
             # return
-            raise IndexError("Index out of bound")
+            raise IndexError("Index out of range")
         else:
             value = self.current.data
             self.current = self.current.next
             return value
 
 
-ll = SingleLinkedList()
-print(dir(SingleLinkedList))
-ll.appendFirst(10)
-ll.appendLast(20)
-ll.insert(15, 1)
-ll.insert(21, 2)
-ll.insert(211, 0)
-ll.insert(217)
-ll.insert(216)
-ll.insert(215)
-ll.insert(214)
-ll.insert(213)
-ll.insert(211)
+# ll = SingleLinkedList()
+# # print(dir(SingleLinkedList))
+# ll.appendFirst(10)
+# ll.appendLast(20)
+# ll.insert(15, 1)
+# ll.insert(21, 2)
+# ll.insert(211, 0)
+# ll.insert(217)
+# ll.insert(216)
+# ll.insert(215)
+# ll.insert(214)
+# ll.insert(213)
 
-l = iter(ll)
-try:
-    for i in l:
-        print(i)
-except IndexError:
-    print('Program terminated')
+# # l = iter(ll)
+# # try:
+# #     for i in l:
+# #         print(i)
+# # except IndexError:
+# #     print('Program terminated')
 
 # print(ll)
-# print(ll.slice(2, 9))
+# # print(ll.slice(2, 9))
 # l = ll.reverse()
-# print(l.length)
+# # print(l.__length__)
 # print(l)
 # print(ll.get(2), '1')
 # ll.set(2, 2)
