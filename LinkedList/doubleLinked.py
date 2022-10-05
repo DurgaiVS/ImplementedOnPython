@@ -225,6 +225,11 @@ class DoubleLinkedList:
 
         return output
 
+    # returns the length of the list
+
+    def len(self) -> int:
+        return self.__length__
+
     # create an iterable of this object
 
     def __iter__(self) -> "DoubleLinkedList":

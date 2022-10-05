@@ -78,7 +78,6 @@ class DoubleCircularList:
             iter.next = node
 
         else:
-            self.__length__ += 1
             index = self.__length__ - 1
             iter = self.tail
             while index > position:
@@ -88,6 +87,7 @@ class DoubleCircularList:
             iter.previous.next = node
             iter.previous = node
 
+        self.__length__ += 1
         self.__linkAsCircle__()
 
     # This function is used to remove an element at the specified index of the linked list
@@ -217,9 +217,10 @@ class DoubleCircularList:
     def reverse(self) -> 'DoubleCircularList':
         reversedList = DoubleCircularList()
         iter = self.tail
-        while iter:
+        while iter != self.head:
             reversedList.appendLast(iter.data)
             iter = iter.previous
+        reversedList.appendLast(iter.data)
         return reversedList
         # output = str(iter.data)
         # iter = iter.previous
@@ -236,7 +237,7 @@ class DoubleCircularList:
         iter = self.head
         output = str(iter.data)
         iter = iter.next
-        while iter:
+        while iter != self.head:
             output += f" - {iter.data}"
             iter = iter.next
 
@@ -251,31 +252,33 @@ class DoubleCircularList:
 
     def __iter__(self) -> "DoubleCircularList":
         self.current = self.head
+        self.isOvr = False
         return self
 
     # get the next value in the iterable
 
     def __next__(self) -> "DoubleCircularList.data":
-        if self.current == None:
+        if not self.isOvr:
             raise IndexError("Index out of bound")
-        else:
-            value = self.current.data
-            self.current = self.current.next
-            return value
+        elif self.current.next == self.head:
+            self.isOvr = True
+        value = self.current.data
+        self.current = self.current.next
+        return value
 
 
 ll = DoubleCircularList()
 ll.appendFirst(10)
 ll.appendLast(20)
-# ll.insert(15, 1)
-# ll.insert(115, 1)
-# ll.insert(125)
-# ll.insert(135, 3)
-# ll.insert(145)
-# ll.insert(21, 2)
-# ll.insert(211, 0)
-# ll.insert(212)
-# ll.insert(213)
+ll.insert(15, 1)
+ll.insert(115, 1)
+ll.insert(125)
+ll.insert(135, 3)
+ll.insert(145)
+ll.insert(21, 2)
+ll.insert(211, 0)
+ll.insert(212)
+ll.insert(213)
 print(ll, ll.len())
 l = ll.slice()
 print(l)
