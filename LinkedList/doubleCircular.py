@@ -23,6 +23,11 @@ class DoubleCircularList:
             outerObj.head.previous = outerObj.tail
             return outerObj
 
+    # This function returns the length of the list
+
+    def __len__(self) -> int:
+        return self.__length__
+
     # This function can be used to insert an element to the top of the linked list
 
     def appendFirst(self, data: any = None, next=None) -> None:
@@ -296,3 +301,4 @@ print(ll.reverse())
 # print(ll.get(2), '1')
 # ll.set(2, 2)
 # print(ll)
+print(len(ll))
