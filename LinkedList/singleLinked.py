@@ -175,11 +175,6 @@ class SingleLinkedList:
 
         # return reversedList
 
-    # This functin will return the current length of the linked list
-
-    def leng(self) -> int:
-        return self.__length__
-
     # This function is used to return the string representation of the linked list
     # This is used when we print the instance of this class
 
